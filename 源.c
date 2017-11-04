@@ -36,34 +36,7 @@ int n;
 
 
 
- /*TeleBook *Create() 
-{ 
-	TeleBook *p1, *p2, *head;
-	int a;
-	printf("Creating a list...\n");
-	p1=p2=(TeleBook *) malloc(sizeof(TeleBook));
-	head = NULL;		
-	printf("\n编号  姓名   电话号码  电子邮件\n");
-	scanf("%s %s %s %s",p1->num,p1->name,p1->phonenum,p1->email);
-	printf("Please input a number(if(0) stop): ");
-	scanf("%d",&a);
-    while( a!=0 )    
-    {   
-	if(head==NULL)     
-		head= p1;  
-	else                         
-		p2->next=p1;
-	p2=p1;   
-	p1=(TeleBook *) malloc(sizeof(TeleBook)); 
-	printf("\n编号  姓名   电话号码  电子邮件\n");
-	scanf("%s %s %s %s",p1->num,p1->name,p1->phonenum,p1->email); 
-	printf("Please input a number(if(0) stop): ");//判断是否输入
-    scanf("%d",&a);
-    }
-	p2->next=NULL;
-                                   
-    return(head);           
- }*/
+
  
  TeleBook *Create()  /*创建有序链表*/ 
  { 
@@ -82,30 +55,7 @@ int n;
 	} 
     return(head);                   
  }  
- /*TeleBook *Create()
-{
-	TeleBook *head;
-	TeleBook *p1,*p2;
-	char *s="0";
-	n=0;
-	p1=p2=( TeleBook *)malloc(sizeof(TeleBook));
-	printf("\n编号  姓名   电话号码  电子邮件\n");
-	scanf("%s %s %s %s",p1->num,p1->name,p1->phonenum,p1->email);
-	head=NULL;
-	while(strcmp(p1->num,s))
-	{
-
-		n=n+1;
-		if(n==1) head=p1;
-		else p2->next=p1;
-		p2=p1;
-		p1=( TeleBook *)malloc(sizeof(TeleBook));
-		printf("\n编号  姓名   电话号码  电子邮件\n");
-		scanf("%s %s %s %s",p1->num,p1->name,p1->phonenum,p1->email);
-	}
-	p2->next=NULL;
-	return(head);
-}*/
+ 
    
 
 
@@ -127,6 +77,8 @@ TeleBook *Delete_a_record(TeleBook *head)
 	else       
 		exit(1);
 } 
+
+
 
 TeleBook *Delete(TeleBook *head,char *num) /*删除一个结点*/
 {
@@ -154,23 +106,8 @@ TeleBook *Delete(TeleBook *head,char *num) /*删除一个结点*/
 
 	return(head);      /*返回链表头指针*/
 } 
-/*
-TeleBook *DeleteSame(TeleBook *head)
-{
-	TeleBook *p,*p1,*p2; 
-    for (p=head;p!=NULL;p=p->next)   //循环查找并删除相同的记录  
-	{ 
-        for (p2=p,p1=p->next;p1!=NULL;)    
-		{ 
-           if (strcmp(p1->num,p->num)==0) 
-            p2->next=p1->next;        //删除相同姓名结点    
-			p1=p1->next;       
-			p2=p2->next;      
-		}   
-	} 
-    printf("The node of same name has been deleted\n");//相同结点被删除
-	return(head);                 //返回链表头指针 
-}*/
+
+
 TeleBook *DeleteSame(TeleBook *head)
 {
     TeleBook *p,*q,*r;
@@ -267,25 +204,7 @@ TeleBook *AddfromText(TeleBook *head,char *filename)
     fclose(fp1);            /*关闭文件*/   
 	return(head);           /*返回链表头指针*/
 } 
-/*void Display(TeleBook *head)
-{
-	TeleBook *p;
-	int n=0;
-	p=head;                         //令p为头结点
-	printf("Output list:\n"); 
-	printf("编号  姓名  电话号码    电子邮件\n");
-    if (p!=NULL)                  //p非空执行
-	{ 
-		n++; 
-        printf("%-6s%-6s%-15s%-15s\n",p->num,p->name,p->phonenum,p->email);//输出结点 
-		p=p->next;                      //指向下一个结点 
-		if (n%10==0 && n>=10)      
-		{ 
-            system("cls");          
-			system("pause"); 
-        }                       //每输出10个暂停一次
-	}
-} */
+
 void Display(TeleBook *head)/*显示所有结点记录*/
 {
 	TeleBook *p;
@@ -401,68 +320,9 @@ TeleBook *Reverse (TeleBook *head)
         printf("The node has been reversed\n");   
 		return(head); 
 } 
-/*
-void  Sort_by_num(TeleBook *head)
-{
-TeleBook *p,*s,*pt; 
-	p = head;
-	s = p->next;
-	while(p->next != NULL)
-	{
-		while(s->next != NULL)
-		{
-			if(strcmp(p->next->num , s->next->num)<0)
-			{
-				pt = p->next;
-				p->next = s->next;
-				s->next = p->next->next;
-				p->next->next = pt;
-			}
-			else s = s->next;
-		}
-		p = p->next;
-		s = p->next;
-	}
-}*/
-/*void  Sort_by_num(TeleBook *head) 
-{  
- TeleBook *sorted,*unsorted,*min,*upmin;
- TeleBook *temp;
- unsorted=head;
- sorted=NULL;  
-       while (unsorted->next)   
-		 {   
-             min = unsorted;   
-               temp = unsorted->next;            //在未排序部分找出最小元素的指针min  
-		         while (temp)       
-				 {   
-                   if (strcmp(min->num,temp->num)>0)                  
-				    min = temp;              
-			        temp = temp->next;  
-				 }
-				 if(unsorted==min)
-					 sorted=unsorted;
-				 else
-				 {
-					 upmin=unsorted;//找出找出指向min的链元素
-					 while(upmin->next!=min)
-						 upmin=upmin->next;
-					 upmin->next=min->next;
-					 if(sorted==NULL)
-					 {
-						 min->next=head;
-						 head=sorted=min;
-					 }
-					 else
-					 {
-						 sorted->next = min;
-						 min->next = unsorted;
-						 sorted=min;
-					 }
-				 }
-				 unsorted=sorted->next;
-		 }
-	   }*/
+
+
+
 void Sort_by_num(TeleBook *head)                                            /*5. 升序排列 */
 {
 TeleBook *p1,*p2,*p0,*p3,*p;/*表头指针，表尾指针，更小的节点的前节点，最小节点，当前节点*/ 
